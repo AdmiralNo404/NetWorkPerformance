@@ -1,0 +1,8 @@
+Student Name: Yanbang Liu
+Student ID: 4446044
+X.500: liux1366
+
+in each folder, enter make to generate executable files.
+to run app-client: ./app-client <ds-port> <db-port>
+to run app-server: ./app-server <ds-port>
+to run dir-server: ./dir-server <ds-port>

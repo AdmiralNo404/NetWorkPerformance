@@ -1,0 +1,41 @@
+Student Name: 	Yanbang Liu
+Student ID:		4446044
+X.500:			liux1366
+
+directory:
+liux1366/
+	README
+	PA2.pdf
+	message.h
+	server/
+		Makefile
+		server_tcp.c
+		server_udp.c
+	client/
+		Makefile
+		client_tcp.c
+		client_udp.c
+		
+Makefile usage:
+	Under server/:
+		make tcp-server: compile server_tcp.c to executable named server_tcp
+		make udp-server: compile server_udp.c to executable named server_udp
+	Under client/:
+		make tcp-client: compile client_tcp.c to executable named client_tcp
+		make udp-client: compile client_udp.c to executable named client_udp
+
+How this works:
+	The file downloading program uses a message protocol defined in message.h
+	The client send a GET message to the server to request a file, the server
+	then looks for the path given by the client. If the specified file/path
+	does not exist then server would respond with GET_ERR message to the client.
+	Otherwise, the server will break the file into chunks of size BUF_SZ, which
+	is also defined in message.h, and then send it to the client. For each chunk
+	the client receives from the server, the client have to send back an ACK message.
+	The server would not send the next chunk until it receives the corresponding
+	ACK message. This is the concept of stop-and-wait transfer.
+
+NOTE: The udp server does not implement the timeout-resend machanism. Packet loss
+may happen under bad network condition if downloading large sized files. The server
+and client would hang at recvfrom() function. The likelihood of packet loss happening
+is around 5% during 100 times of file transfer for input_large.txt.
